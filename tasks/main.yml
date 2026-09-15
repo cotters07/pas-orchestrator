@@ -1,0 +1,141 @@
+---
+# file: main.yml
+
+- hosts: localhost
+  connection: local
+
+  vars_prompt:
+    - name: accept_eula
+      prompt: "Please accept EULA"
+      default: "No"
+      private: no
+
+    - name: vault_ip
+      prompt: "Please enter the Vault ip address"
+      private: no
+
+    - name: vault_password
+      prompt: "Please enter the Vault Administrator password"
+      private: yes
+
+    - name: pvwa_zip_file_path
+      prompt: "Please enter PVWA installation package location"
+      default: "/tmp/pas_packages/pvwa.zip"
+      private: no
+
+  tasks:
+    - name: Set required parameters from prompt
+      include_tasks: set_facts.yml
+
+
+# ==============================================================
+# PVWA DEPLOYMENT
+# ==============================================================
+
+- hosts: pvwa
+  strategy: free
+
+  tasks:
+
+    # ----------------------------------------------------------
+    # Determine whether PVWA existed BEFORE this playbook run
+    # ----------------------------------------------------------
+
+    - name: Pre-check PVWA state
+      ansible.builtin.include_tasks: pvwa_precheck.yml
+
+#    - name: Check if PVWA is already installed - 64 bit
+#      ansible.windows.win_reg_stat:
+#        path: HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{{ pvwa_guid }}
+#        name: Publisher
+#      register: pvwa_appwiz_info_64bit
+
+#    - name: Check if PVWA is already installed - 32 bit
+#      ansible.windows.win_reg_stat:
+#        path: HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\{{ pvwa_guid }}
+#        name: Publisher
+#      register: pvwa_appwiz_info_32bit
+
+#    - name: Check if PVWA was installed with scripted installer
+#      ansible.windows.win_reg_stat:
+#        path: HKLM:\SOFTWARE\CyberArk\PVWA
+#      register: pvwa_script_installation
+
+#    - name: Set PVWA existence state before deployment
+#      ansible.builtin.set_fact:
+#        pvwa_existed_before_run: >-
+#          {{
+#            pvwa_appwiz_info_64bit.exists
+#            or pvwa_appwiz_info_32bit.exists
+#            or pvwa_script_installation.exists
+#          }}
+
+#    - name: Display PVWA pre-run state
+#      ansible.builtin.debug:
+#        msg:
+#          - "PVWA existed before this run: {{ pvwa_existed_before_run }}"
+#          - "PVWA 64-bit installed: {{ pvwa_appwiz_info_64bit.exists }}"
+#          - "PVWA 32-bit installed: {{ pvwa_appwiz_info_32bit.exists }}"
+#          - "PVWA scripted installation: {{ pvwa_script_installation.exists }}"
+
+    # ----------------------------------------------------------
+    # Only deploy when PVWA did NOT exist before this run
+    # ----------------------------------------------------------
+
+    - name: Deploy PVWA
+      ansible.builtin.include_tasks: pvwa.yml
+      when:
+        - not pvwa_existed_before_run
+
+
+# ==============================================================
+# PVWA REGISTRATION
+# ==============================================================
+
+- hosts: pvwa
+  serial: 1
+
+  tasks:
+
+    # ----------------------------------------------------------
+    # Determine whether PVWA is already registered
+    # ----------------------------------------------------------
+
+    - name: Check PVWA registration status
+      ansible.windows.win_uri:
+        url: "https://127.0.0.1/PasswordVault/api/server"
+        validate_certs: false
+        timeout: 60
+      register: pvwa_server_info
+      ignore_errors: true
+
+    - name: Set PVWA registered state
+      ansible.builtin.set_fact:
+        pvwa_registered: true
+      when:
+        - pvwa_server_info.status_code is defined
+        - pvwa_server_info.status_code == 200
+
+    - name: Set PVWA registered state to false
+      ansible.builtin.set_fact:
+        pvwa_registered: false
+      when:
+        - pvwa_server_info.status_code is not defined
+          or pvwa_server_info.status_code != 200
+
+    - name: Display PVWA registration state
+      ansible.builtin.debug:
+        msg:
+          - "PVWA existed before this run: {{ pvwa_existed_before_run }}"
+          - "PVWA registered: {{ pvwa_registered }}"
+          - "PVWA API status: {{ pvwa_server_info.status_code | default('unavailable') }}"
+
+    # ----------------------------------------------------------
+    # Register only an existing, unregistered PVWA
+    # ----------------------------------------------------------
+
+    - name: Register existing PVWA
+      ansible.builtin.include_tasks: register_pvwa.yml
+      when:
+        - pvwa_existed_before_run
+        - not pvwa_registered

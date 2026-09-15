@@ -1,0 +1,12 @@
+---
+
+- include_role:
+    name: psm
+  vars:
+    - psm_extract: true
+    - psm_prerequisites: true
+    - psm_install: true
+    - psm_postinstall: true
+    - psm_hardening: true
+    - psm_registration: false
+    - psm_official: false

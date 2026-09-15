@@ -1,0 +1,15 @@
+# ignore all retries files
+*.retry
+.idea/*
+
+# ignore components symlink
+roles/cpm
+roles/psm
+roles/pvwa
+roles/psmp
+
+# ignore components log
+logs/cpm
+logs/psm
+logs/pvwa
+logs/psmp
