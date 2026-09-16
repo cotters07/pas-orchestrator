@@ -1,0 +1,3 @@
+2026-09-15 17:14:14,536 p=8433 u=root n=ansible INFO| Starting galaxy role install process
+2026-09-15 17:14:16,353 p=8433 u=root n=ansible INFO| - extracting pvwa to /project/pas-orchestrator/roles/pvwa
+2026-09-15 17:14:16,364 p=8433 u=root n=ansible INFO| - pvwa (v14.6) was installed successfully
