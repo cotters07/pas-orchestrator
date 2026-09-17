@@ -7,7 +7,7 @@
     vault_password: "{{ vault_password }}"
 #    ansible_user: "{{ ansible_user }}"
 #    ansible_password: "{{ ansible_password }}"
-#    cpm_zip_file_path: "{{ cpm_zip_file_path }}"
-    pvwa_zip_file_path: "{{ pvwa_zip_file_path }}"
+    cpm_zip_file_path: "{{ cpm_zip_file_path }}"
+#    pvwa_zip_file_path: "{{ pvwa_zip_file_path }}"
 #    psm_zip_file_path: "{{ psm_zip_file_path }}"
   no_log: true

@@ -18,9 +18,14 @@
       prompt: "Please enter the Vault Administrator password"
       private: yes
 
-    - name: pvwa_zip_file_path
-      prompt: "Please enter PVWA installation package location"
-      default: "/tmp/pas_packages/pvwa.zip"
+#    - name: pvwa_zip_file_path
+#      prompt: "Please enter PVWA installation package location"
+#      default: "/tmp/pas_packages/pvwa.zip"
+#      private: no
+
+    - name: cpm_zip_file_path
+      prompt: "Please enter CPM installation package location"
+      default: "/tmp/pas_packages/cpm.zip"
       private: no
 
   tasks:
@@ -43,40 +48,6 @@
 
     - name: Pre-check PVWA state
       ansible.builtin.include_tasks: pvwa_precheck.yml
-
-#    - name: Check if PVWA is already installed - 64 bit
-#      ansible.windows.win_reg_stat:
-#        path: HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{{ pvwa_guid }}
-#        name: Publisher
-#      register: pvwa_appwiz_info_64bit
-
-#    - name: Check if PVWA is already installed - 32 bit
-#      ansible.windows.win_reg_stat:
-#        path: HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\{{ pvwa_guid }}
-#        name: Publisher
-#      register: pvwa_appwiz_info_32bit
-
-#    - name: Check if PVWA was installed with scripted installer
-#      ansible.windows.win_reg_stat:
-#        path: HKLM:\SOFTWARE\CyberArk\PVWA
-#      register: pvwa_script_installation
-
-#    - name: Set PVWA existence state before deployment
-#      ansible.builtin.set_fact:
-#        pvwa_existed_before_run: >-
-#          {{
-#            pvwa_appwiz_info_64bit.exists
-#            or pvwa_appwiz_info_32bit.exists
-#            or pvwa_script_installation.exists
-#          }}
-
-#    - name: Display PVWA pre-run state
-#      ansible.builtin.debug:
-#        msg:
-#          - "PVWA existed before this run: {{ pvwa_existed_before_run }}"
-#          - "PVWA 64-bit installed: {{ pvwa_appwiz_info_64bit.exists }}"
-#          - "PVWA 32-bit installed: {{ pvwa_appwiz_info_32bit.exists }}"
-#          - "PVWA scripted installation: {{ pvwa_script_installation.exists }}"
 
     # ----------------------------------------------------------
     # Only deploy when PVWA did NOT exist before this run
@@ -139,3 +110,65 @@
       when:
         - pvwa_existed_before_run
         - not pvwa_registered
+
+# ==============================================================
+# CPM DEPLOYMENT
+# ==============================================================
+
+- hosts: cpm
+  strategy: free
+
+  tasks:
+
+    # ----------------------------------------------------------
+    # Determine whether CPM existed BEFORE this playbook run
+    # ----------------------------------------------------------
+
+    - name: Pre-check CPM state
+      ansible.builtin.include_tasks: cpm_precheck.yml
+
+    # ----------------------------------------------------------
+    # Only deploy when CPM did NOT exist before this run
+    # ----------------------------------------------------------
+
+    - name: Deploy CPM
+      ansible.builtin.include_role:
+        name: cpm
+      vars:
+        cpm_zip_file_path: "{{ cpm_zip_file_path }}"
+        cpm_extract: true
+        cpm_prerequisites: true
+        cpm_install: true
+        cpm_hardening: true
+        cpm_registration: false
+        cpm_clean: false
+      when:
+        - not cpm_existed_before_run
+
+
+# ==============================================================
+# CPM REGISTRATION
+# ==============================================================
+
+- hosts: cpm
+  serial: 1
+
+  tasks:
+
+    # ----------------------------------------------------------
+    # Run CPM role registration logic
+    # ----------------------------------------------------------
+
+    - name: Register existing CPM
+      ansible.builtin.include_role:
+        name: cpm
+      vars:
+        cpm_zip_file_path: "{{ cpm_zip_file_path }}"
+        cpm_extract: false
+        cpm_prerequisites: false
+        cpm_install: false
+        cpm_hardening: false
+        cpm_registration: true
+        cpm_clean: false
+      when:
+        - cpm_existed_before_run

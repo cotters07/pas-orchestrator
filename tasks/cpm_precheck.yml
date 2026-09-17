@@ -1,0 +1,30 @@
+---
+- name: Load CPM role defaults
+  ansible.builtin.include_vars:
+    file: "../roles/cpm/defaults/main.yml"
+
+- name: Check if CPM service exists
+  ansible.windows.win_service_info:
+    name: "{{ cpm_service_name }}"
+  register: cpm_service_info
+
+- name: Check if CPM Scanner service exists
+  ansible.windows.win_service_info:
+    name: "{{ cpm_scanner_service_name }}"
+  register: cpm_scanner_service_info
+
+- name: Set CPM existence state before this run
+  ansible.builtin.set_fact:
+    cpm_existed_before_run: >-
+      {{
+        cpm_service_info.services | length > 0
+        or
+        cpm_scanner_service_info.services | length > 0
+      }}
+
+- name: Display CPM pre-run state
+  ansible.builtin.debug:
+    msg:
+      - "CPM existed before this run: {{ cpm_existed_before_run }}"
+      - "CPM service exists: {{ cpm_service_info.services | length > 0 }}"
+      - "CPM Scanner service exists: {{ cpm_scanner_service_info.services | length > 0 }}"

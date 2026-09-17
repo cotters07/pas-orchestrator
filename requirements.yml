@@ -6,9 +6,9 @@
   version: v14.6
 
 # cpm git repo
-#- src: https://github.com/cotters07/cpm.git
-#  scm: git
-#  version: v14.4
+- src: https://github.com/cyberark/cpm.git
+  scm: git
+  version: v14.4
 
 # psm git repo
 #- src: https://github.com/cotters07/psm.git

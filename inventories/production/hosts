@@ -5,16 +5,16 @@
 # Add here list of hosts or ip adresses of pvwa dedicated machines
 # pvwa01.example.com
 # pvwa02.example.com
-winserver01.lab.org
-winserver02.lab.org
-winserver04.lab.org
+#winserver01.lab.org
+#winserver02.lab.org
+#winserver04.lab.org
 
 
 [cpm]
 # Add here list of hosts or ip adresses of cpm dedicated machines
 # cpm01.example.com
 # cpm02.example.com
-#winserver01.lab.org
+winserver04.lab.org
 
 [psm]
 # Add here list of hosts or ip adresses of psm dedicated machines
@@ -30,6 +30,6 @@ winserver04.lab.org
 
 # DO NOT EDIT BELOW!!!
 [windows:children]
-pvwa
-#cpm
+#pvwa
+cpm
 #psm
