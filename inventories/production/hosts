@@ -14,6 +14,7 @@
 # Add here list of hosts or ip adresses of cpm dedicated machines
 # cpm01.example.com
 # cpm02.example.com
+winserver02.lab.org
 winserver04.lab.org
 
 [psm]

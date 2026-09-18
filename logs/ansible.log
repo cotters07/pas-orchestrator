@@ -4500,3 +4500,165 @@ Origin: /project/pas-orchestrator/roles/cpm/tasks/cpm_hardening.yml:107:7
 2026-09-17 16:54:03,613 p=13999 u=root n=ansible INFO| PLAY RECAP ************************************************************************************************************************************
 2026-09-17 16:54:03,613 p=13999 u=root n=ansible INFO| localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 2026-09-17 16:54:03,613 p=13999 u=root n=ansible INFO| winserver04.lab.org        : ok=32   changed=5    unreachable=0    failed=0    skipped=11   rescued=0    ignored=0   
+2026-09-18 08:34:07,026 p=2095 u=root n=ansible INFO| PLAY [localhost] *******************************************************************************************************************************************************
+2026-09-18 08:34:07,035 p=2095 u=root n=ansible INFO| TASK [Gathering Facts] *************************************************************************************************************************************************
+2026-09-18 08:34:07,878 p=2095 u=root n=ansible INFO| ok: [localhost]
+2026-09-18 08:34:07,882 p=2095 u=root n=ansible INFO| TASK [Set required parameters from prompt] *****************************************************************************************************************************
+2026-09-18 08:34:07,897 p=2095 u=root n=ansible INFO| included: /project/pas-orchestrator/tasks/set_facts.yml for localhost
+2026-09-18 08:34:07,900 p=2095 u=root n=ansible INFO| TASK [Pass input parameters to relevant roles] *************************************************************************************************************************
+2026-09-18 08:34:07,913 p=2095 u=root n=ansible INFO| ok: [localhost]
+2026-09-18 08:34:07,914 p=2095 u=root n=ansible INFO| PLAY [pvwa] ************************************************************************************************************************************************************
+2026-09-18 08:34:07,915 p=2095 u=root n=ansible INFO| skipping: no hosts matched
+2026-09-18 08:34:07,915 p=2095 u=root n=ansible INFO| PLAY [pvwa] ************************************************************************************************************************************************************
+2026-09-18 08:34:07,915 p=2095 u=root n=ansible INFO| skipping: no hosts matched
+2026-09-18 08:34:07,916 p=2095 u=root n=ansible INFO| PLAY [cpm] *************************************************************************************************************************************************************
+2026-09-18 08:34:12,396 p=2095 u=root n=ansible INFO| TASK [Gathering Facts] *************************************************************************************************************************************************
+2026-09-18 08:34:12,397 p=2095 u=root n=ansible WARNING| [WARNING]: Module remote_tmp C:\ansible-tmp did not exist and was created with FullControl to Administrator, this may cause issues when running as another user. To avoid this, create the remote_tmp dir with the correct permissions manually
+
+2026-09-18 08:34:12,397 p=2095 u=root n=ansible INFO| ok: [winserver04.lab.org]
+2026-09-18 08:34:12,413 p=2095 u=root n=ansible INFO| TASK [Pre-check CPM state] *********************************************************************************************************************************************
+2026-09-18 08:34:12,420 p=2095 u=root n=ansible INFO| included: /project/pas-orchestrator/tasks/cpm_precheck.yml for winserver04.lab.org
+2026-09-18 08:34:12,435 p=2095 u=root n=ansible INFO| TASK [Load CPM role defaults] ******************************************************************************************************************************************
+2026-09-18 08:34:12,436 p=2095 u=root n=ansible ERROR| [ERROR]: Task failed: Action failed: Unknown error.
+Origin: /project/pas-orchestrator/tasks/cpm_precheck.yml:2:3
+
+1 ---
+2 - name: Load CPM role defaults
+    ^ column 3
+
+
+2026-09-18 08:34:12,437 p=2095 u=root n=ansible INFO| fatal: [winserver04.lab.org]: FAILED! => {"ansible_facts": {}, "ansible_included_var_files": [], "changed": false, "message": "Could not find or access '../roles/cpm/defaults/main.yml'\nSearched in:\n\t/project/pas-orchestrator/tasks/vars/../roles/cpm/defaults/main.yml\n\t/project/pas-orchestrator/tasks/../roles/cpm/defaults/main.yml\n\t/project/pas-orchestrator/tasks/vars/../roles/cpm/defaults/main.yml\n\t/project/pas-orchestrator/tasks/../roles/cpm/defaults/main.yml on the Ansible Controller.", "msg": "Task failed: Action failed: Unknown error."}
+2026-09-18 08:34:13,230 p=2095 u=root n=ansible INFO| TASK [Gathering Facts] *************************************************************************************************************************************************
+2026-09-18 08:34:13,230 p=2095 u=root n=ansible INFO| ok: [winserver02.lab.org]
+2026-09-18 08:34:13,243 p=2095 u=root n=ansible INFO| TASK [Pre-check CPM state] *********************************************************************************************************************************************
+2026-09-18 08:34:13,246 p=2095 u=root n=ansible INFO| included: /project/pas-orchestrator/tasks/cpm_precheck.yml for winserver02.lab.org
+2026-09-18 08:34:13,262 p=2095 u=root n=ansible INFO| TASK [Load CPM role defaults] ******************************************************************************************************************************************
+2026-09-18 08:34:13,263 p=2095 u=root n=ansible INFO| fatal: [winserver02.lab.org]: FAILED! => {"ansible_facts": {}, "ansible_included_var_files": [], "changed": false, "message": "Could not find or access '../roles/cpm/defaults/main.yml'\nSearched in:\n\t/project/pas-orchestrator/tasks/vars/../roles/cpm/defaults/main.yml\n\t/project/pas-orchestrator/tasks/../roles/cpm/defaults/main.yml\n\t/project/pas-orchestrator/tasks/vars/../roles/cpm/defaults/main.yml\n\t/project/pas-orchestrator/tasks/../roles/cpm/defaults/main.yml on the Ansible Controller.", "msg": "Task failed: Action failed: Unknown error."}
+2026-09-18 08:34:13,266 p=2095 u=root n=ansible INFO| PLAY RECAP *************************************************************************************************************************************************************
+2026-09-18 08:34:13,266 p=2095 u=root n=ansible INFO| localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2026-09-18 08:34:13,266 p=2095 u=root n=ansible INFO| winserver02.lab.org        : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2026-09-18 08:34:13,266 p=2095 u=root n=ansible INFO| winserver04.lab.org        : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2026-09-18 08:35:19,827 p=2162 u=root n=ansible INFO| Starting galaxy role install process
+2026-09-18 08:35:22,027 p=2162 u=root n=ansible INFO| - extracting pvwa to /project/pas-orchestrator/roles/pvwa
+2026-09-18 08:35:22,039 p=2162 u=root n=ansible INFO| - pvwa (v14.6) was installed successfully
+2026-09-18 08:35:22,765 p=2162 u=root n=ansible WARNING| [WARNING]: - cpm was NOT installed successfully: - command /usr/bin/git checkout v14.6 failed in directory /root/.ansible/tmp/ansible-local-21625mslwlnv/tmpf4ctkaai/cpm (rc=1) - error: pathspec 'v14.6' did not match any file(s) known to git
+
+2026-09-18 08:35:22,766 p=2162 u=root n=ansible ERROR| [ERROR]: - you can use --ignore-errors to skip failed roles and finish processing the list.
+
+2026-09-18 08:38:05,537 p=2204 u=root n=ansible INFO| Starting galaxy role install process
+2026-09-18 08:38:05,538 p=2204 u=root n=ansible INFO| - changing role pvwa from v14.6 to v14.6
+2026-09-18 08:38:07,668 p=2204 u=root n=ansible INFO| - extracting pvwa to /project/pas-orchestrator/roles/pvwa
+2026-09-18 08:38:07,678 p=2204 u=root n=ansible INFO| - pvwa (v14.6) was installed successfully
+2026-09-18 08:38:08,618 p=2204 u=root n=ansible WARNING| [WARNING]: - cpm was NOT installed successfully: - command /usr/bin/git checkout v14.6 failed in directory /root/.ansible/tmp/ansible-local-2204zkcl8xuh/tmppsd3fwgf/cpm (rc=1) - error: pathspec 'v14.6' did not match any file(s) known to git
+
+2026-09-18 08:38:08,618 p=2204 u=root n=ansible ERROR| [ERROR]: - you can use --ignore-errors to skip failed roles and finish processing the list.
+
+2026-09-18 09:08:26,030 p=2332 u=root n=ansible WARNING| [WARNING]: Collection at '/usr/local/lib/python3.12/site-packages/ansible/_internal/ansible_collections/ansible/_protomatter' does not have a MANIFEST.json file, nor has it galaxy.yml: cannot detect version.
+
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| # /usr/local/lib/python3.12/site-packages/ansible/_internal/ansible_collections
+Collection                               Version
+---------------------------------------- -------
+
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| ansible._protomatter                     *      
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| # /usr/local/lib/python3.12/site-packages/ansible_collections
+Collection                               Version
+---------------------------------------- -------
+
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| amazon.aws                               11.4.0 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| ansible.mariadb                          6.0.2  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| ansible.mysql                            5.2.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| ansible.netcommon                        8.6.2  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| ansible.posix                            2.2.2  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| ansible.utils                            6.1.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| ansible.windows                          3.8.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| arista.eos                               12.2.0 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| azure.azcollection                       3.21.0 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| check_point.mgmt                         6.9.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| chocolatey.chocolatey                    1.6.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| cisco.aci                                2.13.0 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| cisco.intersight                         2.21.0 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| cisco.ios                                11.5.1 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| cisco.iosxr                              12.4.2 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| cisco.meraki                             2.25.1 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| cisco.mso                                2.13.0 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| cisco.nxos                               11.2.0 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| cisco.ucs                                1.16.0 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| cloudscale_ch.cloud                      2.7.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.aws                            11.1.0 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.ciscosmb                       1.0.12 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.clickhouse                     2.3.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.crypto                         3.4.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.dns                            4.1.1  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.docker                         5.3.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.general                        13.4.0 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.grafana                        2.3.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.hashi_vault                    7.1.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.hrobot                         2.7.2  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.library_inventory_filtering_v1 1.1.5  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.libvirt                        2.3.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.mongodb                        1.8.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.mysql                          5.0.2  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.okd                            5.0.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.postgresql                     4.2.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.proxmox                        2.0.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.proxysql                       1.8.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.rabbitmq                       1.7.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.routeros                       3.22.0 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.sap_libs                       1.7.1  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.sops                           2.4.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.vmware                         6.3.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.windows                        3.3.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| community.zabbix                         4.2.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| containers.podman                        1.20.2 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| cyberark.conjur                          1.3.12 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| cyberark.pas                             1.0.39 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| dellemc.enterprise_sonic                 4.1.0  
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| dellemc.openmanage                       10.0.3 
+2026-09-18 09:08:26,035 p=2332 u=root n=ansible INFO| dellemc.powerflex                        3.1.0  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| dellemc.unity                            2.1.0  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| f5networks.f5_modules                    1.43.0 
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| fortinet.fortimanager                    2.15.0 
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| fortinet.fortios                         2.6.0  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| google.cloud                             1.14.0 
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| grafana.grafana                          6.1.0  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| graphiant.naas                           26.8.0 
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| hetzner.hcloud                           6.12.0 
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| hitachivantara.vspone_block              4.8.2  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| hitachivantara.vspone_object             1.2.0  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| ibm.storage_virtualize                   3.4.0  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| ieisystem.inmanage                       4.0.0  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| infinidat.infinibox                      1.8.6  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| infoblox.nios_modules                    1.9.0  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| inspur.ispim                             2.2.4  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| kaytus.ksmanage                          4.0.0  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| kubernetes.core                          6.5.0  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| kubevirt.core                            2.3.0  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| lowlydba.sqlserver                       2.8.1  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| microsoft.ad                             1.12.1 
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| microsoft.iis                            1.3.0  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| netapp.cloudmanager                      21.24.0
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| netapp.ontap                             23.6.0 
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| netapp.storagegrid                       21.16.0
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| netapp_eseries.santricity                2.0.3  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| netbox.netbox                            3.23.0 
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| ngine_io.cloudstack                      3.3.0  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| openstack.cloud                          2.6.0  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| ovirt.ovirt                              3.2.2  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| pcg.alpaca_operator                      2.2.0  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| purestorage.flasharray                   1.43.0 
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| purestorage.flashblade                   1.26.0 
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| ravendb.ravendb                          1.0.4  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| splunk.es                                6.0.1  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| telekom_mms.icinga_director              2.6.1  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| theforeman.foreman                       5.12.0 
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| vmware.vmware                            2.10.0 
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| vmware.vmware_rest                       4.11.0 
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| vultr.cloud                              1.14.1 
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| vyos.vyos                                6.0.0  
+2026-09-18 09:08:26,036 p=2332 u=root n=ansible INFO| wti.remote                               1.0.11 
+2026-09-18 09:11:50,638 p=2364 u=root n=ansible INFO| Starting galaxy role install process
+2026-09-18 09:11:50,638 p=2364 u=root n=ansible INFO| - changing role pvwa from v14.6 to v14.6
+2026-09-18 09:11:52,828 p=2364 u=root n=ansible INFO| - extracting pvwa to /project/pas-orchestrator/roles/pvwa
+2026-09-18 09:11:52,837 p=2364 u=root n=ansible INFO| - pvwa (v14.6) was installed successfully
+2026-09-18 09:11:53,728 p=2364 u=root n=ansible INFO| - extracting cpm to /project/pas-orchestrator/roles/cpm
+2026-09-18 09:11:53,732 p=2364 u=root n=ansible INFO| - cpm (v14.6) was installed successfully
